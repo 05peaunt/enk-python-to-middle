@@ -101,6 +101,7 @@ class Organization:
             self.analyse += 1
             self.test += 1
             self.total_salary += employee.salary
+        return self
 
     def accept_employees(self, *args):
         """Принимает сотрудников на работу."""

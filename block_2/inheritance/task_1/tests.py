@@ -41,25 +41,19 @@ class Test(TestCase):
         self.assertEqual(self.org.calculate_salary(), 1600000)
 
     def test_with_team_lead_and_product_owner(self):
-        self.org.accept_employee(self.ceo)
-        self.org.accept_employee(self.developer)
-        self.org.accept_employee(self.analyst)
-        self.org.accept_employee(self.product_owner)
-        self.org.accept_employee(self.team_lead)
-        self.org.accept_employee(self.tester)
-        # self.org.accept_employee(
-        #     self.ceo,
-        # ).accept_employee(
-        #     self.developer,
-        # ).accept_employee(
-        #     self.analyst,
-        # ).accept_employee(
-        #     self.tester,
-        # ).accept_employee(
-        #     self.team_lead,
-        # ).accept_employee(
-        #     self.product_owner,
-        # )
+        self.org.accept_employee(
+            self.ceo,
+        ).accept_employee(
+            self.developer,
+        ).accept_employee(
+            self.analyst,
+        ).accept_employee(
+            self.tester,
+        ).accept_employee(
+            self.team_lead,
+        ).accept_employee(
+            self.product_owner,
+        )
 
         self.assertEqual(self.org.can_develop_count, 3)
         self.assertEqual(self.org.can_analyze_count, 3)
