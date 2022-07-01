@@ -16,12 +16,9 @@ class Product(Enum):
 class CashBox:
 
     def get_total_sum(self, product, card_type):
-        if product == Product.A:
-            cost = Product.A.value
-        elif product == Product.B:
-            cost = Product.B.value
-        elif product == Product.C:
-            cost = Product.C.value
+
+        if product.value in [p.value for p in Product]:
+            cost = product.value
         else:
             cost = 0
 

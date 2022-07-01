@@ -1,43 +1,43 @@
+from abc import ABC, abstractmethod
+
+
+class Product(ABC):
+
+    def __init__(self, name) -> None:
+        self._name = name
+
+    @abstractmethod
+    def get_sample(self):
+        raise NotImplementedError
+
+
 class OnlineShop:
 
     def __init__(self) -> None:
         super().__init__()
-        self._books = []
+        self._products = []
 
-    def add_book(self, book):
-        self._books.append(book)
-
+    def add_product(self, product):
+        self._products.append(product)
         return self
 
-    def read_samples(self):
-        return [b.read_sample() for b in self._books]
+    def get_samples(self):
+        return [p.get_sample() for p in self._products]
 
 
-class Book:
+class Book(Product):
 
-    def __init__(self, name) -> None:
-        super().__init__()
-        self._name = name
-
-    def read_sample(self):
+    def get_sample(self):
         return self._name[0]
 
 
-class Song:
+class Song(Product):
 
-    def __init__(self, name) -> None:
-        super().__init__()
-        self._name = name
-
-    def listen_sample(self):
+    def get_sample(self):
         return self._name[:3]
 
 
-class Film:
+class Film(Product):
 
-    def __init__(self, name) -> None:
-        super().__init__()
-        self._name = name
-
-    def see_segment(self):
+    def get_sample(self):
         return self._name[:5]

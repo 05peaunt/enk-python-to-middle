@@ -24,8 +24,11 @@ class RecordStore:
     def del_record(self, record):
         self._records.remove(record)
 
+    def as_dict(self, code, name):
+        return {code: name}
+
     def to_json(self):
-        result = json.dumps([x.as_dict() for x in self._records])
+        result = json.dumps([self.as_dict(x.code, x.name) for x in self._records])
 
         return result
 

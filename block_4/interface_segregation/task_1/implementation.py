@@ -4,30 +4,32 @@ def salary_method(f):
     return f
 
 
-class Employee:
+class Person:
 
     @property
     def name(self):
         raise NotImplementedError
 
-    @property
-    def monthly_salary(self):
-        raise NotImplementedError
+
+class Staffer:
 
     @property
     def other_benefits(self):
         raise NotImplementedError
 
     @property
-    def hourly_rate(self):
-        raise NotImplementedError
-
-    @property
-    def hours_in_month(self):
+    def monthly_salary(self):
         raise NotImplementedError
 
     @salary_method
     def calculate_month_salary(self):
+        raise NotImplementedError
+
+
+class Contractor:
+
+    @property
+    def hourly_rate(self):
         raise NotImplementedError
 
     @salary_method
@@ -35,7 +37,14 @@ class Employee:
         raise NotImplementedError
 
 
-class FullTimeDeveloper(Employee):
+class HourlyPaid:
+
+    @property
+    def hours_in_month(self):
+        raise NotImplementedError
+
+
+class FullTimeDeveloper(Person, Staffer):
 
     @property
     def name(self):
@@ -54,7 +63,7 @@ class FullTimeDeveloper(Employee):
         return self.monthly_salary + self.other_benefits
 
 
-class PartTimeDeveloper(Employee):
+class PartTimeDeveloper(Person, Staffer, HourlyPaid):
 
     @property
     def name(self):
@@ -77,7 +86,7 @@ class PartTimeDeveloper(Employee):
         return self.monthly_salary / 200.0 * self.hours_in_month + self.other_benefits
 
 
-class ContractDeveloper(Employee):
+class ContractDeveloper(Person, Contractor, HourlyPaid):
 
     @property
     def name(self):
@@ -92,5 +101,5 @@ class ContractDeveloper(Employee):
         return 100.0
 
     @salary_method
-    def calculate_month_salary(self):
-        return self.hourly_rate + self.hours_in_month
+    def calculate_contract_salary(self):
+        return self.hourly_rate * self.hours_in_month
