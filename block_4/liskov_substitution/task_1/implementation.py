@@ -28,6 +28,7 @@ class SavingAccount(Account):
 class DynamicAccount(SavingAccount, WithdrawableAccount):
     pass
 
+
 class NonWithdrawableAccount(SavingAccount):
 
     def withdraw(self, amount):
