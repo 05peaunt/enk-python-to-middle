@@ -116,7 +116,7 @@ class VisaPaymentAdapter(PaymentAdapter):
 
 class MasterCardPaymentAdapter(PaymentAdapter):
     """Адаптер платежной системы MasterCard"""
-    # нужно добавить свой код сюда
+
     def send(self, sum):
         self.payment_system.take(sum)
 
