@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from enum import IntEnum
+from enum import IntEnum, Enum
 
 
 class Language(IntEnum):
@@ -8,7 +8,12 @@ class Language(IntEnum):
     GERMAN = 3
 
 
-class Mediator(metaclass=ABC):
+class Word(Enum):
+    CAT = ['кот', 'cat', 'katze']
+    DOG = ['собака', 'dog', 'hund']
+
+
+class Mediator(ABC):
     """ Абстрактный класс медиатора - переводчика """
 
     @abstractmethod
@@ -73,5 +78,15 @@ class Translator(Mediator):
         """
         self.foreigners[language] = foreigner
 
-    def translate(self, word: str, language_from: Language) -> str:
-        # нужно добавить свой код сюда
+    def translate(self, word: str, language_from: Language):
+        clear = False
+        for understandable_word in Word:
+            if word in understandable_word.value:
+                for foreigner in self.foreigners:
+                    for language in Language:
+                        if foreigner == language:
+                            clear = True
+                            self.foreigners[foreigner].last_listen_word = understandable_word.value[language.value - 1]
+        if not clear:
+            print('Я не знаю такого слова')
+
