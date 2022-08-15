@@ -2,6 +2,10 @@ from django.db import (
     models,
 )
 
+from django.contrib.postgres.operations import BtreeGinExtension
+
+from django.contrib.postgres.indexes import GinIndex, GistIndex
+
 
 class Employee(models.Model):
     """Сотрудник."""
@@ -15,7 +19,14 @@ class Employee(models.Model):
     position_id = models.IntegerField('ID должности')
     begin = models.DateField('Дата приема')
     end = models.DateField('Дата увольнения', null=True)
-    additional_info = models.TextField('Дополнительная информация', default='')
+    additional_info = models.TextField('Дополнительная информация', default='', db_index=True)
 
     class Meta:
         db_table = 'indexes_employees'
+        indexes = [
+            models.Index(fields=['fname', 'iname', 'oname']),
+            GinIndex(fields=['country']),
+            GistIndex(fields=['begin', 'end']),
+
+            GinIndex(fields=['additional_info'], name='additional_info_gin_index', opclasses=['gin_trgm_ops'])
+        ]
